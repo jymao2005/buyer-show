@@ -1,0 +1,19 @@
+{
+    "name": "buyer-show",
+    "version": "1.0",
+    "manifest_version": 2,
+    "description": "",
+    "author": "几毛工作室",
+    "background": {
+        "scripts": []
+    },
+    "content_scripts": [{
+        "matches": ["*://*.taobao.com/", "*://*.jd.com/", "*://*.tmall.com/"],
+        "js": ["build.js"],
+        "css": ["build.css"]
+    }],
+    "browser_action": {
+        "default_icon": "icon.png"
+    },
+    "permissions": ["tabs", "cookies", "*://*/*"]
+}
