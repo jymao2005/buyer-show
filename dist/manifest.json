@@ -8,7 +8,7 @@
         "scripts": []
     },
     "content_scripts": [{
-        "matches": ["*://*.taobao.com/", "*://*.jd.com/", "*://*.tmall.com/"],
+        "matches": ["*://detail.tmall.com/*", "*://*.taobao.com/", "*://*.jd.com/"],
         "js": ["build.js"],
         "css": ["build.css"]
     }],

@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <hello></hello>
+    <el-button type="success">ElementUI</el-button>
+
+    <Hello></Hello>
   </div>
 </template>
 
@@ -11,6 +13,9 @@ export default {
   name: 'app',
   components: {
     Hello
+  }
+  ,mounted(){
+   // this.$message("element-ui installed");
   }
 }
 </script>
