@@ -38,6 +38,10 @@ export default {
     padding-top: 60px;
     background: #fff;
     border: 1px solid rgb(179, 179, 179);
+    position: absolute;
+    left: 200px;
+    z-index: 2;
+    top: 0;
     &:before {
         content: "";
         width: 8px;
