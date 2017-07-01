@@ -14,7 +14,8 @@ export default {
     props: ['height'],
     methods: {        
         changeOver(index){
-            this.$children[0].setActiveItem(index); 
+            //console.log(index) 
+            this.$emit("index-change",index);
         }
     }
 }
@@ -50,8 +51,8 @@ export default {
         right: 0!important;
     }
     .el-carousel__arrow{
-        width: 25px;
-        height: 25px;
+        width: 30px;
+        height: 30px;
     }
 }
 </style>

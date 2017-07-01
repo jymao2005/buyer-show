@@ -7,7 +7,7 @@
         </div>
         <div class="content clearfix">
             <div class="fl">
-                <el-carousel height="450px" :autoplay="false" indicator-position="none">
+                <el-carousel ref="carousel" height="500px" :autoplay="false" indicator-position="none">
                     <el-carousel-item v-for="item in 10" :key="item">
                         <img src="dist/icon.png" alt="">
                     </el-carousel-item>
@@ -43,7 +43,7 @@ export default {
     },
     methods: {
         changeOver(index){
-
+            this.$refs.carousel.setActiveItem(index);
         }
     }
 }
@@ -72,15 +72,20 @@ export default {
 }
 .content{
     padding-top: 10px;
+    width: 1000px;
+    margin: 0 auto;
     >div{
         width: 50%;
         padding:0 10px;
     }
     .right{
         >p{
-            height: 150px;
+            height: 240px;
             overflow: auto;
             margin: 10px 0;
+            border: 1px solid #333;
+            padding: 5px;
+            line-height: 25px;
         }
         .item{
             width: 18%;
@@ -96,5 +101,8 @@ export default {
             border:1px solid #ccc;
         }
     }
+}
+.user{
+    margin:0 0 20px 0;
 }
 </style>
