@@ -15,7 +15,7 @@ export default {
     Hello
   }
   ,mounted(){
-   // this.$message("element-ui installed");
+    this.$message("element-ui installed");
   }
 }
 </script>

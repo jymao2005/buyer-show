@@ -14,7 +14,7 @@ export default {
     }
   },
   async mounted(){
-    this.comments = await this.$api.getComments({pageIdx:3});
+  //  this.comments = await this.$api.getComments({pageIdx:3});
 
   }
 }
