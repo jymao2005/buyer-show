@@ -40,27 +40,29 @@ class ListTmallApi {
         return this._itemApi;
     }
     getComments() {
-        this._itemApi && this._itemApi.getComments(...arguments);
+        return this._itemApi && this._itemApi.getComments(...arguments);
     }
 }
 class TmallApi {
-    constructor({ info, ItemUrl }) {
+    constructor(opts) {
         this._url = "https://rate.tmall.com/list_detail_rate.htm";
-        if (info) {
-            this._info = info;
-        } else if (itemUrl) {
-            var res = sa.get(itemUrl);
-            var html = res.body;
-            let info = this._matchInfo(html);
-            if (info) {
-                this._info = info;
-            } else {
-                console.log("no info found in item html")
-            }
+        this._init(opts)
+    }
+    async _init({ itemUrl }) {
+        let info;
+        if (!itemUrl) {
+            info = this._ensureInfo();
+
         } else {
-            this._ensureInfo().then((info) => {
-                this._info = info && info.rateConfig;
-            });
+            let res = await sa.get(itemUrl);
+
+            let html = res.text;
+            info = this._matchInfo(html);
+        }
+        if (info) {
+            this._info = info && info.rateConfig;
+        } else {
+            console.log("no info found in item html")
         }
     }
     async getComments({ pageIdx, append = 0 }) {

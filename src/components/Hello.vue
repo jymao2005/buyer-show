@@ -1,6 +1,6 @@
 <template>
   <div id="hello">
-    <p :key="cmt" v-for="cmt in rateList">{{cmt.rateContent}}</p>
+    <p :key="cmt.id" v-for="cmt in rateList">{{cmt.rateContent}}</p>
   </div>
 </template>
 
@@ -15,12 +15,18 @@ export default {
   },
   computed:{
     rateList(){
-        return this.comments && this.comments.rateList;
+        return (this.comments && this.comments.rateList)||[];
     }
   },
   async mounted(){
-    this.comments = await this.$api.getComments({pageIdx:3});
-
+    var isListPage = this.$api.constructor.name === "ListTmallApi";
+    if(isListPage){
+       var itemUrl = document.querySelector(".product .productImg-wrap a").href;
+       console.log("itemUrl:", itemUrl); 
+       this.$api.makeNewItemApi({itemUrl});
+    }
+    this.comments = await this.$api.getComments({pageIdx:1});
+    console.log("this.comments:", this.comments);      
   }
 }
 </script>

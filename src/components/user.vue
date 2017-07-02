@@ -1,7 +1,7 @@
 <template>
 <div class="user clearfix">
     <div class="fl">
-        <img class="fl" src="dist/icon.png" alt="会员图标">
+        <img class="fl" :src="getPicUrl('img/icon.png')" alt="会员图标">
         <span class="fl">8******6</span>
     </div>
     <div class="date fr">2017.1.1</div>
@@ -10,7 +10,11 @@
 </template>
 <script>
 export default {
-
+    methods: {
+        getPicUrl(url){
+            return chrome.extension.getURL(url);
+        }
+    }
 }
 </script>
 <style lang="scss" scoped>

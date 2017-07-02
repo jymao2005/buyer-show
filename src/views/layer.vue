@@ -1,9 +1,9 @@
 <template>
-<div class="layer">
+<div class="layer" :class="{tmleft:!tmRight,tmRight:tmRight}">
     <div class="title clearfix">
-        <img class="fl" src="dist/icon.png" alt="logo">
+        <img class="fl" :src="getPicUrl('img/icon.png')" alt="logo">
         <div class="fl">
-            <el-radio class="radio" v-model="radio" label="1">追评(456)</el-radio>
+            <el-radio class="radio" v-model="radio" label="1">追评(123)</el-radio>
             <el-radio class="radio" v-model="radio" label="2">晒图(123)</el-radio>
             <a class="fr" href="">首次使用有问题点击这里</a>
         </div>
@@ -11,7 +11,7 @@
     <div class="content">
         <ul class="comments">
             <li v-for="item in 3" :key='item'>
-                <comment></comment>
+                <comment @selectPic='selectPic'></comment>
             </li>
         </ul>
     </div>
@@ -25,8 +25,21 @@ export default {
             radio:2
         }
     },
+    methods: {
+        getPicUrl(url){
+            return chrome.extension.getURL(url);
+        },
+        selectPic(index){
+            console.log(1,index);
+            this.$emit('selectPic',index);
+        }
+    },
     components: {
         comment
+    },
+    props: ['tmRight'],
+    mounted () {
+        
     }
 }
 </script>
@@ -39,7 +52,7 @@ export default {
     background: #fff;
     border: 1px solid rgb(179, 179, 179);
     position: absolute;
-    left: 200px;
+    left: 206px;
     z-index: 2;
     top: 0;
     &:before {
@@ -55,6 +68,15 @@ export default {
         border-left: 1px solid rgb(206, 206, 206);
         border-top: 1px solid rgb(206, 206, 206);
     }
+}
+.tmleft{
+    left: -403px;
+    &:before{
+        left: 395px;
+    }
+}
+.tmRight{
+    left: 206px;
 }
 .title{
     position: absolute;
