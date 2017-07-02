@@ -23,8 +23,10 @@ export default {
             let i=0;
             let arr=[];
             while(i<data.length){
-                arr[arr.length-1]
-                Array.push.apply(arr,data.slice(i,i+5));
+                let end=i+5;
+                arr[arr.length]=[];
+                if(i+5<data.length) end=data.length;
+                Array.push.apply(arr,data.slice(i,end));
                 i += 5;
             }
         }
