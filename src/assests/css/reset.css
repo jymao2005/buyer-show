@@ -24,3 +24,6 @@ a{text-decoration: none}
 .mui-mbar-plugins{
     background-color: #fff!important;
 }
+.el-dialog__wrapper{
+    z-index: 99999999!important;
+}
