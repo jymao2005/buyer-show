@@ -1,6 +1,6 @@
 <template>
   <div id="hello">
-    <p v-for="cmt in comments.rateList">{{cmt.rateContent}}</p>
+    <p :key="cmt" v-for="cmt in rateList">{{cmt.rateContent}}</p>
   </div>
 </template>
 
@@ -13,8 +13,13 @@ export default {
       comments:{}
     }
   },
+  computed:{
+    rateList(){
+        return this.comments && this.comments.rateList;
+    }
+  },
   async mounted(){
-  //  this.comments = await this.$api.getComments({pageIdx:3});
+    this.comments = await this.$api.getComments({pageIdx:3});
 
   }
 }

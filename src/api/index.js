@@ -30,13 +30,38 @@ class JdApi {
 }
 
 import sa from "superagent";
-
-class TmallApi {
+class ListTmallApi {
     constructor() {
+
+    }
+
+    makeNewItemApi({ itemUrl }) {
+        this._itemApi = new TmallApi({ itemUrl });
+        return this._itemApi;
+    }
+    getComments() {
+        this._itemApi && this._itemApi.getComments(...arguments);
+    }
+}
+class TmallApi {
+    constructor({ info, ItemUrl }) {
         this._url = "https://rate.tmall.com/list_detail_rate.htm";
-        this._ensureInfo().then((info) => {
-            this._info = info && info.rateConfig;
-        });
+        if (info) {
+            this._info = info;
+        } else if (itemUrl) {
+            var res = sa.get(itemUrl);
+            var html = res.body;
+            let info = this._matchInfo(html);
+            if (info) {
+                this._info = info;
+            } else {
+                console.log("no info found in item html")
+            }
+        } else {
+            this._ensureInfo().then((info) => {
+                this._info = info && info.rateConfig;
+            });
+        }
     }
     async getComments({ pageIdx, append = 0 }) {
         if (!this._info) {
@@ -88,11 +113,18 @@ class TmallApi {
             }
         })
     }
+    _matchInfo(str) {
+        var m = str.match(/TShop.Setup\([\n]*([\s\S\n]*?)[\n]*\)/);
+        if (m && m[1]) {
+            return JSON.parse(m[1]);
+        }
+        return null;
+    }
     _getInfo() {
         for (let script of document.scripts) {
-            var m = script.innerText.match(/TShop.Setup\([\n]*([\s\S\n]*?)[\n]*\)/);
-            if (m && m[1]) {
-                return JSON.parse(m[1]);
+            var info = this._matchInfo(script.innerText);
+            if (info) {
+                return info;
             }
         }
 
@@ -107,8 +139,11 @@ function makeApi() {
     if (/jd\.com/i.test(host)) {
         return new JdApi();
     }
-    if (/tmall\.com/i.test(host)) {
+    if (/detail\.tmall\.com/i.test(host)) {
         return new TmallApi();
+    }
+    if (/list\.tmall\.com/i.test(host)) {
+        return new ListTmallApi();
     }
 }
 
