@@ -13,3 +13,14 @@ body{color:#666;background-color:#fff;}
 .fl{float: left}
 .fr{float: right}
 a{text-decoration: none}
+
+.reward{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-56%,-50%);
+    cursor: pointer;
+}
+.mui-mbar-plugins{
+    background-color: #fff!important;
+}

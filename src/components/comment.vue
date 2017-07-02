@@ -4,7 +4,7 @@
         <user></user>
         <p class="content" v-show="!showAllContent">
             顶部导航条一直置顶显示的，追评和晒图两个按钮任意点击单选，内容评价区对应切换。
-            <img @click="showAll" src="dist/down.png" alt="更多">
+            <img @click="showAll" :src="getPicUrl('img/down.png')" alt="更多">
         </p>
         <p class="content" v-show="showAllContent">
             顶部导航条一直置顶显示的，追评和晒图两个按钮任意点击单选，内容评价区对应切换。顶部导航条一直置顶显示的，追评和晒图两个按钮任意点击单选，内容评价区对应切换。
@@ -12,8 +12,8 @@
     </div>
     <div class="content">
         <el-carousel ref="carousel1" class="carousel1" height="300px" :autoplay="false" indicator-position="none" arrow="never">
-            <el-carousel-item v-for="item in 10" :key="item">
-                <img src="dist/icon.png" alt="">
+            <el-carousel-item v-for="(item,key) in 10" @click.native='selectPic(key)' :key="item">
+                <img :src="getPicUrl('img/icon.png')" alt="">
             </el-carousel-item>
         </el-carousel>
         <five-pic height='64px' @index-change="changOver"></five-pic>
@@ -44,6 +44,12 @@ export default {
         },
         changOver(index){
             this.$refs.carousel1.setActiveItem(index);
+        },
+        getPicUrl(url){
+            return chrome.extension.getURL(url);
+        },
+        selectPic(index){
+            this.$emit('selectPic',index);
         }
     }
 }

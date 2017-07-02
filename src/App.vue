@@ -6,7 +6,7 @@
 
 <script>
 //import Hello from './components/Hello.vue'
-import Hello from './views/details.vue'
+import Hello from './views/full.vue'
 
 export default {
   name: 'app',

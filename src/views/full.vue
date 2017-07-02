@@ -1,4 +1,5 @@
 <template>
+<div class="full">
     <el-dialog :visible.sync="showFull" size="full">
         <div slot="title">
             <el-button class="prev" type="text">上一条</el-button>
@@ -26,6 +27,7 @@
             </div>
         </div>
     </el-dialog>
+</div>
 </template>
 <script>
 import user from '../components/user.vue'
