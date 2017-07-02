@@ -1,21 +1,33 @@
 <template>
-    <div class="gj-gallery-tab clearfix" id="gj-gallery-tab" style="margin-top: 0px;">
-        <a class="gj-gallery-tab-logo" title="觅鱼网购助手由腾讯电脑管家提供" href="http://mmm.qq.com/?ADTAG=media.bj.buyer_show_tab.logo" target="_blank">
-            <div class="gj-gallery-tab-icon"></div>
+    <div class="gallery-tab clearfix" @click.stop="showDetails" id="gallery-tab" style="margin-top: 0px;">
+        <a class="gallery-tab-logo" title="觅鱼网购助手由腾讯电脑管家提供">
+            <div class="gallery-tab-icon"></div>
         </a>
-        <div class="gj-gallery-tab-text gj-comments-tab-buyer-show" title="点击查看买家秀，帮您快速做出购买决策	">买家秀
-            <span class="color-red">28</span>
+        <div class="gallery-tab-text comments-tab-buyer-show" title="点击查看买家秀，帮您快速做出购买决策">买家秀
+            <span class="color-red" v-text="comments.paginator.items"></span>
         </div>
     </div>
 </template>
 <script>
 export default {
-  
+    data () {
+        return {
+            comments:{}
+        }
+    },
+    methods: {
+        showDetails(){
+            this.$emit('showDetails');
+        }
+    },
+    async created(){
+        this.comments = await this.$api.getComments({pageIdx:3});
+    }
 }
 </script>
 
 <style scoped lang='scss'>
-.gj-gallery-tab {
+.gallery-tab {
     padding-top: 10px;
     padding-left: 10px;
     float: left;
@@ -25,24 +37,24 @@ export default {
     color: rgb(102, 102, 102);
     background-color: rgb(255, 255, 255);
 }
-.gj-gallery-tab-logo {
+.gallery-tab-logo {
     float: left;
     background-color: rgb(255, 73, 88);
     width: 29px;
-    height: 29px;
+    height: 30px;
     padding: 0px !important;
     border-right: none !important;
 }
-.gj-gallery-tab-icon {
+.gallery-tab-icon {
     background-image: url("se-extension://ext-1542696855/images/wggj/logo.png");
     display: block;
     width: 20px;
     height: 20px;
     margin: 5px;
 }
-.gj-gallery-tab-text {
+.gallery-tab-text {
     float: left;
-    line-height: 26px;
+    line-height: 27px;
     border: 2px solid rgb(255, 73, 88);
     padding: 0px 5px;
 }

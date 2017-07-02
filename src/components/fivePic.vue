@@ -1,9 +1,9 @@
 <template>
 <div>    
     <el-carousel class="fivePic" :height="height" :autoplay="false" indicator-position="none">
-        <el-carousel-item v-for="(item,key) in 2" :key="key">
+        <el-carousel-item v-for="(item,key) in data" :key="key">
             <div v-for="(i,k) in 5" :key="k" @click="changeOver(key*5+k)" class="item fl">
-                <img src="dist/icon.png" alt="">
+                <img :src="item">
             </div>
         </el-carousel-item>
     </el-carousel>
@@ -11,11 +11,24 @@
 </template>
 <script>
 export default {
-    props: ['height'],
+    props: ['height','data'],
     methods: {        
         changeOver(index){
             //console.log(index) 
             this.$emit("index-change",index);
+        }
+    },
+    computed: {
+        changeData(){
+            let i=0;
+            let arr=[];
+            while(i<data.length){
+                let end=i+5;
+                arr[arr.length]=[];
+                if(i+5<data.length) end=data.length;
+                Array.push.apply(arr,data.slice(i,end));
+                i += 5;
+            }
         }
     }
 }

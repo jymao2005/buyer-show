@@ -1,11 +1,11 @@
 <template>
 <el-dialog title="晒图(999)" :visible.sync="showDetail" size="large">
-    <div class="item">
-        <user></user>
+    <div class="item" v-for="item in rateList" :key="item">
+        <user :data='item' :append='append'></user>
         <p class="comment">
-            顶部导航条一直置顶显示的，追评和晒图两个按钮任意点击单选，内容评价区对应切换。顶部导航条一直置顶显示的，追评和晒图两个按钮任意点击单选，内容评价区对应切换。顶部导航条一直置顶显示的，追评和晒图两个按钮任意点击单选，内容评价区对应切换。顶部导航条一直置顶显示的，追评和晒图两个按钮任意点击单选，内容评价区对应切换。
+            {{item.rateContent}}
         </p>
-        <five-pic height="162px" @index-change='gotoFull' @click.native="change(1)"></five-pic>
+        <five-pic :data="item.pics" height="162px" @index-change='gotoFull' @click.native="change(1)"></five-pic>
     </div>
 </el-dialog>
 </template>
@@ -18,7 +18,9 @@ export default {
     },
     data () {
         return {
-            showDetail:true
+            showDetail:false,
+            rateList:{},
+            append:0
         }
     },
     methods: {
@@ -29,6 +31,10 @@ export default {
             console.log(index);
 
         }
+    },
+    async mounted(){
+        this.rateList = await this.$api.getComments({pageIdx:3}).rateList;
+        console.log(this.rateList);
     }
 }
 </script>

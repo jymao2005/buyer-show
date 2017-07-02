@@ -4,18 +4,6 @@ export default {
     }
 }
 
-class TbApi {
-    constructor() {
-
-    }
-    async getComments({ pageIdx }) {
-
-    }
-
-    async getAppendedComments({ pageIdx }) {
-
-    }
-}
 class JdApi {
     constructor() {
 
@@ -133,6 +121,8 @@ class TmallApi {
     }
 }
 
+import TbApi from './tb-api.js'
+
 function makeApi() {
     let host = window.location.host;
     if (/taobao\.com/i.test(host)) {
@@ -149,6 +139,7 @@ function makeApi() {
     }
 }
 
+/*
 function parseQuery(query) {
     query = query.substr(1);
     let args = {};
@@ -161,4 +152,4 @@ function parseQuery(query) {
     }
 
     return args;
-}
+}*/
